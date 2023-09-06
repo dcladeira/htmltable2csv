@@ -1,12 +1,10 @@
 import streamlit as st
 import pandas as pd
-import os
+import xlwings as xw
 
 st.set_page_config(page_title='Tabela HTML para Excel')
 
 st.header('Converte tabela HTML para arquivo Excel')
-st.write('Os arquivos serão salvos na pasta:')
-st.write(os.getcwd())
 st.divider()
 
 # Obtem os parâmetros da função pd.read_html()
@@ -62,4 +60,4 @@ if url:
         st.table(df_list[indice])
         # Exporta tabela se o botão for pressionado
         if st.button('Exporta arquivo Excel'):
-            df_list[indice].to_excel(tabela_selecionada+'.xlsx')
+            xw.view(df_list[indice])
