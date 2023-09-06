@@ -2,3 +2,4 @@ streamlit
 pandas
 os
 lxlm
+bs4
