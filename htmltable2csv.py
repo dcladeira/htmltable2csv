@@ -1,9 +1,9 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title='Tabela HTML para Excel')
+st.set_page_config(page_title='Tabela HTML para CSV')
 
-st.header('Converte tabela HTML para arquivo Excel')
+st.header('Converte tabela HTML para arquivo CSV')
 st.divider()
 
 # Obtem os parâmetros da função pd.read_html()
