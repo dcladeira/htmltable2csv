@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import os
-import html5lib
 
 st.set_page_config(page_title='Tabela HTML para Excel')
 
@@ -36,12 +35,24 @@ url = st.text_input('Insira o endereço da página e pressione ENTER: ')
 
 # Função para consultar e armazenar resultado em cache.
 # Atualiza a consulta toda vez que houver alteração nos widgets.
-
+@st.cache_data
+def importa_tabelas(url, decimal_chosen, thousands_chosen, header_chosen, skiprows_chosen):
+    try:
+        result = pd.read_html(url,
+                            decimal=decimal_chosen,
+                            thousands=thousands_chosen,
+                            header=header_chosen,
+                            skiprows=skiprows_chosen)
+    except ValueError:
+        st.write('Nenhuma tabela encontrada.')
+    except:
+        st.write('Não foi possível carregar a página.')
+    else:
+        return result
 
 # Aguarda inserção de url para executar a consulta
 if url:
-    #df_list = importa_tabelas(url, decimal_chosen, thousands_chosen, header_chosen, skiprows_chosen)
-    df_list = pd.read_html(url, flavor='bs4')
+    df_list = importa_tabelas(url, decimal_chosen, thousands_chosen, header_chosen, skiprows_chosen)
     if df_list:
         st.write(f'Foram localizadas {len(df_list)} tabelas.')
         # Exibe select box para seleção, visualização e exportação das tabelas encontradas
