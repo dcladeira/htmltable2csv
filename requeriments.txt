@@ -1,5 +1,4 @@
 streamlit
 pandas
 os
-lxlm
-bs4
+lxlm==4.9.1
