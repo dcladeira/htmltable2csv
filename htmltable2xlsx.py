@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
+import html5lib
 
 st.set_page_config(page_title='Tabela HTML para Excel')
 
