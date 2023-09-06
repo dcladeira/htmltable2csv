@@ -2,3 +2,4 @@ streamlit
 pandas
 os
 lxlm==4.9.1
+html5lib
