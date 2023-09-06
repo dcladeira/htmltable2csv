@@ -1,5 +1,4 @@
 streamlit
 pandas
 os
-lxlm
-html5lib
+bs4
