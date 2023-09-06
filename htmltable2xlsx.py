@@ -60,7 +60,7 @@ if url:
     if df_list:
         st.write(f'Foram localizadas {len(df_list)} tabelas.')
         # Exibe select box para seleção, visualização e exportação das tabelas encontradas
-        tabela_selecionada = st.selectbox('Selecione uma tabela para visualização e exportação:',
+        tabela_selecionada = st.selectbox('Selecione uma tabela para visualização e download:',
                                         ['Tabela %d' % i for i in range(len(df_list))])
         indice = int(tabela_selecionada.split(' ')[-1])
         st.table(df_list[indice])
