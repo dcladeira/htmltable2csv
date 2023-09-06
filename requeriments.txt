@@ -1,5 +1,5 @@
 streamlit
 pandas
 os
-lxlm==4.9.1
+lxlm
 html5lib
