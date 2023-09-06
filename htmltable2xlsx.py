@@ -67,7 +67,7 @@ if url:
         csv = convert_df(df_list[indice])
 
         st.download_button(
-            label="Download data as CSV",
+            label="Download tabela formato CSV",
             data=csv,
             file_name=tabela_selecionada+'.csv',
             mime='text/csv',
