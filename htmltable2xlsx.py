@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
-import os
-
-#user = os.environ['USERNAME']
+from tkinter import filedialog, Tk
 
 st.set_page_config(page_title='Tabela HTML para Excel')
 
@@ -50,7 +48,7 @@ def importa_tabelas(url, decimal_chosen, thousands_chosen, header_chosen, skipro
     else:
         return result
 
-# Aguarda inserção de url para executar a consulta
+# Aguarda inserção da url para executar a consulta
 if url:
     df_list = importa_tabelas(url, decimal_chosen, thousands_chosen, header_chosen, skiprows_chosen)
     if df_list:
@@ -62,6 +60,11 @@ if url:
         st.table(df_list[indice])
         # Exporta tabela se o botão for pressionado
         if st.button('Exporta arquivo Excel'):
-            #file_path = 'C:/Users/' + user + '/Downloads/' + tabela_selecionada + '.xlsx'
-            file_path = 'C:/Users/' + tabela_selecionada + '.xlsx'
-            df_list[indice].to_excel(file_path)
+            # Código necessário para colocar a janela de salvamento em foco.
+            root = Tk()
+            root.attributes('-alpha', 0.0)      # Hide the window
+            root.attributes('-topmost', True)   # Always have it on top
+            file_path = filedialog.asksaveasfilename(parent=root, initialfile=tabela_selecionada, filetypes=[("Excel files", "*.xlsx")])
+            root.destroy()
+            if file_path:
+                df_list[indice].to_excel(file_path + '.xlsx')
