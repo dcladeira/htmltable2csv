@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from tkinter import filedialog, Tk
 
 st.set_page_config(page_title='Tabela HTML para Excel')
 
@@ -40,13 +39,20 @@ def importa_tabelas(url, decimal_chosen, thousands_chosen, header_chosen, skipro
                             decimal=decimal_chosen,
                             thousands=thousands_chosen,
                             header=header_chosen,
-                            skiprows=skiprows_chosen)
+                            skiprows=skiprows_chosen,
+                            encoding='utf-8')
     except ValueError:
         st.write('Nenhuma tabela encontrada.')
     except:
         st.write('Não foi possível carregar a página.')
     else:
         return result
+
+# IMPORTANT: Cache the conversion to prevent computation on every rerun
+@st.cache_data
+def convert_df(df):
+    return df.to_csv().encode('utf-8')
+    #return df.to_csv()
 
 # Aguarda inserção da url para executar a consulta
 if url:
@@ -58,13 +64,11 @@ if url:
                                         ['Tabela %d' % i for i in range(len(df_list))])
         indice = int(tabela_selecionada.split(' ')[-1])
         st.table(df_list[indice])
-        # Exporta tabela se o botão for pressionado
-        if st.button('Exporta arquivo Excel'):
-            # Código necessário para colocar a janela de salvamento em foco.
-            root = Tk()
-            root.attributes('-alpha', 0.0)      # Hide the window
-            root.attributes('-topmost', True)   # Always have it on top
-            file_path = filedialog.asksaveasfilename(parent=root, initialfile=tabela_selecionada, filetypes=[("Excel files", "*.xlsx")])
-            root.destroy()
-            if file_path:
-                df_list[indice].to_excel(file_path + '.xlsx')
+        csv = convert_df(df_list[indice])
+
+        st.download_button(
+            label="Download data as CSV",
+            data=csv,
+            file_name=tabela_selecionada+'.csv',
+            mime='text/csv',
+        )
