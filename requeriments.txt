@@ -2,3 +2,4 @@ streamlit
 pandas
 os
 bs4
+html5lib
