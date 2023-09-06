@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
-import xlwings as xw
+
+user = os.environ['USERNAME']
 
 st.set_page_config(page_title='Tabela HTML para Excel')
 
@@ -60,4 +61,5 @@ if url:
         st.table(df_list[indice])
         # Exporta tabela se o botão for pressionado
         if st.button('Exporta arquivo Excel'):
-            xw.view(df_list[indice])
+            file_path = 'C:/Users/' + user + '/Downloads/' + tabela_selecionada + '.xlsx'
+            df_list[indice].to_excel(file_path)
