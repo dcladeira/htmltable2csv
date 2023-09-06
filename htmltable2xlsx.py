@@ -42,7 +42,8 @@ url = st.text_input('Insira o endereço da página e pressione ENTER: ')
 # Aguarda inserção de url para executar a consulta
 if url:
     #df_list = importa_tabelas(url, decimal_chosen, thousands_chosen, header_chosen, skiprows_chosen)
-    df_list = pd.read_html(url, flavor='html5lib')
+    #df_list = pd.read_html(url, flavor='html5lib')
+    df_list = pd.read_html(url)
     if df_list:
         st.write(f'Foram localizadas {len(df_list)} tabelas.')
         # Exibe select box para seleção, visualização e exportação das tabelas encontradas
