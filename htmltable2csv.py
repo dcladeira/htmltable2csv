@@ -50,7 +50,6 @@ def importa_tabelas(url, decimal_chosen, thousands_chosen, header_chosen, skipro
 @st.cache_data
 def convert_df(df):
     return df.to_csv(index=False).encode('utf-8')
-    #return df.to_csv()
 
 # Aguarda inserção da url para executar a consulta
 if url:
