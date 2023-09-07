@@ -63,8 +63,8 @@ if url:
         tabela_selecionada = st.selectbox('Selecione uma tabela para visualização e download:',
                                         ['Tabela %d' % i for i in range(len(df_list))])
         indice = int(tabela_selecionada.split(' ')[-1])
-        st.table(df_list[indice])
-        csv = convert_df(df_list[indice])
+        st.table(df_list[indice].iloc[:,1:])
+        csv = convert_df(df_list[indice].iloc[:,1:])
 
         st.download_button(
             label="Download tabela formato CSV",
