@@ -2,13 +2,11 @@ import streamlit as st
 import pandas as pd
 
 st.set_page_config(page_title='Tabela HTML para CSV')
-
 st.header('Converte tabela HTML para arquivo CSV')
 st.divider()
 
 # Obtem os parâmetros da função pd.read_html()
 column_1, column_2, column_3, column_4 = st.columns(4)
-
 with column_1:
     decimal_chosen = st.selectbox('Separador decimal: ', [',', '.'])
 with column_2:
@@ -30,8 +28,8 @@ st.divider()
 
 url = st.text_input('Insira o endereço da página e pressione ENTER: ')
 
-# Função para consultar e armazenar resultado em cache.
-# Atualiza a consulta toda vez que houver alteração nos widgets.
+# Função para consultar e armazenar resultado em cache
+# Atualiza a consulta toda vez que houver alteração nos widgets
 @st.cache_data
 def importa_tabelas(url, decimal_chosen, thousands_chosen, header_chosen, skiprows_chosen):
     try:
@@ -48,7 +46,7 @@ def importa_tabelas(url, decimal_chosen, thousands_chosen, header_chosen, skipro
     else:
         return result
 
-# IMPORTANT: Cache the conversion to prevent computation on every rerun
+# Armazena a conversão em cache para evitar novo cálculo a cada execução
 @st.cache_data
 def convert_df(df):
     return df.to_csv(index=False).encode('utf-8')
@@ -65,7 +63,7 @@ if url:
         indice = int(tabela_selecionada.split(' ')[-1])
         st.table(df_list[indice])
         csv = convert_df(df_list[indice])
-
+        # Exibe botão para download da tabela
         st.download_button(
             label="Download tabela formato CSV",
             data=csv,
