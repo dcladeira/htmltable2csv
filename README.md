@@ -1,4 +1,4 @@
-#### Conversor de tabela HTML em arquivo formato CSV .xlsx
+#### Conversor de tabela HTML em arquivo formato CSV
 
 O aplicativo recupera as tabelas construídas com a tag \<table> na página informada, exibe-as na tela e permite a exportação para um arquivo .csv.
 
