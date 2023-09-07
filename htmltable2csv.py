@@ -51,7 +51,7 @@ def importa_tabelas(url, decimal_chosen, thousands_chosen, header_chosen, skipro
 # IMPORTANT: Cache the conversion to prevent computation on every rerun
 @st.cache_data
 def convert_df(df):
-    return df.to_csv().encode('utf-8')
+    return df.to_csv(index=False).encode('utf-8')
     #return df.to_csv()
 
 # Aguarda inserção da url para executar a consulta
@@ -63,8 +63,8 @@ if url:
         tabela_selecionada = st.selectbox('Selecione uma tabela para visualização e download:',
                                         ['Tabela %d' % i for i in range(len(df_list))])
         indice = int(tabela_selecionada.split(' ')[-1])
-        st.table(df_list[indice].iloc[:,1:])
-        csv = convert_df(df_list[indice].iloc[:,1:])
+        st.table(df_list[indice])
+        csv = convert_df(df_list[indice])
 
         st.download_button(
             label="Download tabela formato CSV",
